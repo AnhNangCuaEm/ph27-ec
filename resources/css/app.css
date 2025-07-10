@@ -174,3 +174,12 @@ a {
 input {
     border: 1px solid #ccc;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.input-error {
+    border: 2px solid rgba(255, 0, 0, 0.77);
+}

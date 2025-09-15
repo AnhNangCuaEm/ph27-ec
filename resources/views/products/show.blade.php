@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
- 
+
         <form action="{{ route('cart.store') }}" method="post" class="bg-gray-50 p-6 rounded-lg">
             @csrf
             @error('quantity')
@@ -28,7 +28,7 @@
             <input type="hidden" name="productId" value="{{ $product->id }}">
 
             <div class="flex items-center mb-4">
-                <input type="number" name="quantity"
+                <input type="number" name="quantity" value="1"
                     class="w-20 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('quantity') border-red-500 @enderror">
                 <span class="ml-2 text-gray-700">個</span>
             </div>

@@ -57,15 +57,27 @@ class OrderController extends Controller
                 $product->stock = $stock;
                 $product->save();
             }
-
             session()->forget('cart');
-
-            echo '注文しました';
+            
             DB::commit();
+            
+            // Redirect to success page with order details
+            return redirect()->route('order.success', ['orderId' => $order->id]);
+            
         } catch (Exception $e) {
-            echo 'エラーが起こりました<br>';
-            echo $e->getMessage();
             DB::rollBack();
+            return redirect()->route('cart.index')->with('error', 'エラーが起こりました: ' . $e->getMessage());
         }
+    }
+
+    public function success($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $orderDetails = OrderDetail::with('product')->where('order_id', $orderId)->get();
+
+        return view('order-success', [
+            'order' => $order,
+            'orderDetails' => $orderDetails,
+        ]);
     }
 }

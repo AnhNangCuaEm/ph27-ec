@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    <div class="container mx-auto px-4">
+    <div class="container max-w-4xl mx-auto px-4">
         <a href="{{ route('products') }}">
             <button class="mb-6 bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg transition-colors">
                 ← 商品一覧へ戻る
@@ -9,7 +9,17 @@
         </a>
         <h2 class="text-3xl font-bold text-gray-800 mb-6">カート</h2>
 
+        @if (session('error'))
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                <p class="text-red-800">{{ session('error') }}</p>
+            </div>
+        @endif
+
         <div class="space-y-4 mb-6">
+            @if (count($items) === 0)
+                <p class="text-gray-600">カートは空です。</p>
+            @endif
+
             @foreach ($items as $item)
                 <div class="flex items-center bg-white p-4 rounded-lg shadow-md border">
                     <img src="{{ $item['product']->image }}" alt="{{ $item['product']->name }}"
